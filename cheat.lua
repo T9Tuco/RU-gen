@@ -1,5 +1,5 @@
---[[
-    Made by TucoT9
+--[[ 
+    Made by TucoT9 
 ]]
 
 -- GUI-Erstellung für NeonScripting
@@ -60,7 +60,7 @@ esp.Players = false
 esp:AddObjectListener(workspace, {
    Name = "soldier_model",
    Type = "Model",
-   Color = Color3.fromRGB(255, 0, 4),
+   Color = Color3.fromRGB(128, 0, 128),  -- Leuchtendes Lila
 
    -- Primäres Teil des Modells als HumanoidRootPart festlegen
    PrimaryPart = function(obj)
@@ -165,3 +165,4 @@ game.StarterGui:SetCore("SendNotification", {
    Icon = "",
    Duration = 5
 })
+
