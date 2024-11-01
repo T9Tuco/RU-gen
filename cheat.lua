@@ -20,7 +20,7 @@ Frame.AnchorPoint = Vector2.new(0.5, 0)
 
 -- Eigenschaften des TextLabels
 TextLabel.Parent = Frame
-TextLabel.Text = "Skript von NeonScripting"
+TextLabel.Text = "Script von TucoT9"
 TextLabel.Font = Enum.Font.SourceSansBold
 TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
 TextLabel.TextSize = 18
@@ -40,9 +40,9 @@ local start = os.clock()
 
 -- Benachrichtigung senden, dass das Skript geladen wird
 game.StarterGui:SetCore("SendNotification", {
-   Title = "NeonScripting Skript",
-   Text = "Skript wird geladen...",
-   Icon = "",
+   Title = "RU-gen by TucoT9",
+   Text = "Skript wird injected...",
+   Icon = "https://avatars.githubusercontent.com/u/186250778?v=4",
    Duration = 5
 })
 
@@ -160,7 +160,7 @@ end
 
 -- Benachrichtigung senden, die zeigt, wie lange das Skript benötigt hat und die Ladebewertung anzeigt
 game.StarterGui:SetCore("SendNotification", {
-   Title = "NeonScripting Skript",
+   Title = "RU-gen by TucoT9",
    Text = string.format("Skript in %.2f Sekunden geladen (%s Ladezeit)", time, rating),
    Icon = "",
    Duration = 5
