@@ -161,7 +161,7 @@ end
 
 -- Send a notification showing how long the code took to run and its rating
 game.StarterGui:SetCore("SendNotification", {
-   Title = "NeonScripting Script",
+   Title = "RuGen Script",
    Text = string.format("Script injected in %.2f seconds (%s injected)", time, rating),
    Icon = "",
    Duration = 5
