@@ -1,16 +1,12 @@
---[[ 
-    Made by TucoT9 
-]]
 
--- GUI-Erstellung für NeonScripting
 local ScreenGui = Instance.new("ScreenGui")
 local Frame = Instance.new("Frame")
 local TextLabel = Instance.new("TextLabel")
 
--- GUI dem Spieler-Fenster hinzufügen
+-- Set parent to player's GUI
 ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 
--- Eigenschaften des Rahmens
+-- Frame properties
 Frame.Parent = ScreenGui
 Frame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
 Frame.BackgroundTransparency = 0.5
@@ -18,9 +14,9 @@ Frame.Position = UDim2.new(0.5, -100, 0.1, 0)
 Frame.Size = UDim2.new(0, 200, 0, 50)
 Frame.AnchorPoint = Vector2.new(0.5, 0)
 
--- Eigenschaften des TextLabels
+-- TextLabel properties
 TextLabel.Parent = Frame
-TextLabel.Text = "Script von TucoT9"
+TextLabel.Text = "Scripted by TucoT9"
 TextLabel.Font = Enum.Font.SourceSansBold
 TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
 TextLabel.TextSize = 18
@@ -28,41 +24,41 @@ TextLabel.Size = UDim2.new(1, 0, 1, 0)
 TextLabel.TextScaled = true
 TextLabel.BackgroundTransparency = 1
 
--- Ursprüngliches Skript unten
+-- Original Script Below
 
--- Größe der Trefferbox, Transparenz und Benachrichtigungsstatus festlegen
+-- Set hitbox size, transparency level, and notification status
 local size = Vector3.new(25, 25, 25)
 local trans = 1
 local notifications = false
 
--- Startzeitpunkt des Skripts speichern
+-- Store the time when the code starts executing
 local start = os.clock()
 
--- Benachrichtigung senden, dass das Skript geladen wird
+-- Send a notification saying that the script is loading
 game.StarterGui:SetCore("SendNotification", {
-   Title = "RU-gen by TucoT9",
-   Text = "Skript wird injected...",
-   Icon = "https://avatars.githubusercontent.com/u/186250778?v=4",
+   Title = "RuGen Script",
+   Text = "Loading script...",
+   Icon = "",
    Duration = 5
 })
 
--- ESP-Bibliothek laden und aktivieren
-local esp = loadstring(game:HttpGet("https://raw.githubusercontent.com/T9Tuco/RU-gen/main/.required/esp.lua"))()
+-- Load the ESP library and turn it on
+local esp = loadstring(game:HttpGet("https://raw.githubusercontent.com/CypherX21/Frontlines-Lua-Script/main/esp.lua"))()
 esp:Toggle(true)
 
--- ESP-Einstellungen konfigurieren
+-- Configure ESP settings
 esp.Boxes = true
 esp.Names = false
 esp.Tracers = false
 esp.Players = false
 
--- Objektüberwachung im Arbeitsbereich hinzufügen, um feindliche Modelle zu erkennen
+-- Add an object listener to the workspace to detect enemy models
 esp:AddObjectListener(workspace, {
    Name = "soldier_model",
    Type = "Model",
-   Color = Color3.fromRGB(128, 0, 128),  -- Leuchtendes Lila
+   Color = Color3.fromRGB(255, 102, 102),
 
-   -- Primäres Teil des Modells als HumanoidRootPart festlegen
+   -- Specify the primary part of the model as the HumanoidRootPart
    PrimaryPart = function(obj)
        local root
        repeat
@@ -72,7 +68,7 @@ esp:AddObjectListener(workspace, {
        return root
    end,
 
-   -- Validierungsfunktion zur Prüfung, dass Modelle kein "friendly_marker"-Kind haben
+   -- Use a validator function to ensure that models do not have the "friendly_marker" child
    Validator = function(obj)
        task.wait(1)
        if obj:FindFirstChild("friendly_marker") then
@@ -81,20 +77,20 @@ esp:AddObjectListener(workspace, {
        return true
    end,
 
-   -- Einen benutzerdefinierten Namen für feindliche Modelle festlegen
+   -- Set a custom name to use for the enemy models
    CustomName = "?",
 
-   -- ESP für feindliche Modelle aktivieren
+   -- Enable the ESP for enemy models
    IsEnabled = "enemy"
 })
 
--- ESP für feindliche Modelle aktivieren
+-- Enable the ESP for enemy models
 esp.enemy = true
 
--- Warten, bis das Spiel vollständig geladen ist, bevor Trefferboxen angewendet werden
+-- Wait for the game to load fully before applying hitboxes
 task.wait(1)
 
--- Trefferboxen auf alle existierenden feindlichen Modelle im Arbeitsbereich anwenden
+-- Apply hitboxes to all existing enemy models in the workspace
 for _, v in pairs(workspace:GetDescendants()) do
    if v.Name == "soldier_model" and v:IsA("Model") and not v:FindFirstChild("friendly_marker") then
        local pos = v:FindFirstChild("HumanoidRootPart").Position
@@ -110,22 +106,22 @@ for _, v in pairs(workspace:GetDescendants()) do
    end
 end
 
--- Funktion zur Verarbeitung neuer Nachkommen, die dem Arbeitsbereich hinzugefügt werden
+-- Function to handle when a new descendant is added to the workspace
 local function handleDescendantAdded(descendant)
    task.wait(1)
 
-   -- Wenn der neue Nachkomme ein feindliches Modell ist und Benachrichtigungen aktiviert sind, sende eine Benachrichtigung
+   -- If the new descendant is an enemy model and notifications are enabled, send a notification
    if descendant.Name == "soldier_model" and descendant:IsA("Model") and not descendant:FindFirstChild("friendly_marker") then
        if notifications then
            game.StarterGui:SetCore("SendNotification", {
-               Title = "NeonScripting Skript",
-               Text = "[Warnung] Neuer Feind gespawnt! Trefferboxen angewendet.",
+               Title = "RuGen Script",
+               Text = "[Warning] New Enemy Spawned! Applied hitboxes.",
                Icon = "",
                Duration = 3
            })
        end
 
-       -- Trefferboxen auf das neue feindliche Modell anwenden
+       -- Apply hitboxes to the new enemy model
        local pos = descendant:FindFirstChild("HumanoidRootPart").Position
        for _, bp in pairs(workspace:GetChildren()) do
            if bp:IsA("BasePart") then
@@ -139,30 +135,29 @@ local function handleDescendantAdded(descendant)
    end
 end
 
--- Funktion handleDescendantAdded mit dem Ereignis DescendantAdded des Arbeitsbereichs verbinden
+-- Connect the handleDescendantAdded function to the DescendantAdded event of the workspace
 task.spawn(function()
    game.Workspace.DescendantAdded:Connect(handleDescendantAdded)
 end)
 
--- Endzeitpunkt des Skripts speichern
+-- Store the time when the code finishes executing
 local finish = os.clock()
 
--- Berechnen, wie lange das Skript benötigt hat, und eine Bewertung für die Ladegeschwindigkeit bestimmen
+-- Calculate how long the code took to run and determine a rating for the loading speed
 local time = finish - start
 local rating
 if time < 3 then
-   rating = "schnell"
-elseif time < 5 then
-   rating = "akzeptabel"
+   rating = "fast"
+elif time < 5 then
+   rating = "acceptable"
 else
-   rating = "langsam"
+   rating = "slow"
 end
 
--- Benachrichtigung senden, die zeigt, wie lange das Skript benötigt hat und die Ladebewertung anzeigt
+-- Send a notification showing how long the code took to run and its rating
 game.StarterGui:SetCore("SendNotification", {
-   Title = "RU-gen by TucoT9",
-   Text = string.format("Skript in %.2f Sekunden geladen (%s Ladezeit)", time, rating),
+   Title = "NeonScripting Script",
+   Text = string.format("Script injected in %.2f seconds (%s injected)", time, rating),
    Icon = "",
    Duration = 5
 })
-
