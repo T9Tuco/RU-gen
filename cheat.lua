@@ -1,4 +1,3 @@
-
 local ScreenGui = Instance.new("ScreenGui")
 local Frame = Instance.new("Frame")
 local TextLabel = Instance.new("TextLabel")
@@ -93,13 +92,16 @@ task.wait(1)
 -- Apply hitboxes to all existing enemy models in the workspace
 for _, v in pairs(workspace:GetDescendants()) do
    if v.Name == "soldier_model" and v:IsA("Model") and not v:FindFirstChild("friendly_marker") then
-       local pos = v:FindFirstChild("HumanoidRootPart").Position
-       for _, bp in pairs(workspace:GetChildren()) do
-           if bp:IsA("BasePart") then
-               local distance = (bp.Position - pos).Magnitude
-               if distance <= 5 then
-                   bp.Transparency = trans
-                   bp.Size = size
+       local rootPart = v:FindFirstChild("HumanoidRootPart")
+       if rootPart then
+           local pos = rootPart.Position
+           for _, bp in pairs(workspace:GetChildren()) do
+               if bp:IsA("BasePart") then
+                   local distance = (bp.Position - pos).Magnitude
+                   if distance <= 5 then
+                       bp.Transparency = trans
+                       bp.Size = size
+                   end
                end
            end
        end
@@ -122,13 +124,16 @@ local function handleDescendantAdded(descendant)
        end
 
        -- Apply hitboxes to the new enemy model
-       local pos = descendant:FindFirstChild("HumanoidRootPart").Position
-       for _, bp in pairs(workspace:GetChildren()) do
-           if bp:IsA("BasePart") then
-               local distance = (bp.Position - pos).Magnitude
-               if distance <= 5 then
-                   bp.Transparency = trans
-                   bp.Size = size
+       local rootPart = descendant:FindFirstChild("HumanoidRootPart")
+       if rootPart then
+           local pos = rootPart.Position
+           for _, bp in pairs(workspace:GetChildren()) do
+               if bp:IsA("BasePart") then
+                   local distance = (bp.Position - pos).Magnitude
+                   if distance <= 5 then
+                       bp.Transparency = trans
+                       bp.Size = size
+                   end
                end
            end
        end
@@ -148,7 +153,7 @@ local time = finish - start
 local rating
 if time < 3 then
    rating = "fast"
-elif time < 5 then
+elseif time < 5 then
    rating = "acceptable"
 else
    rating = "slow"
