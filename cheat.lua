@@ -43,7 +43,7 @@ game.StarterGui:SetCore("SendNotification", {
 })
 
 -- Load the ESP library and turn it on
-local esp = loadstring(game:HttpGet("https://raw.githubusercontent.com/CypherX21/Frontlines-Lua-Script/main/esp.lua"))()
+local esp = loadstring(game:HttpGet("https://raw.githubusercontent.com/T9Tuco/RU-gen/refs/heads/main/.required/esp.lua"))()
 esp:Toggle(true)
 
 -- Configure ESP settings
