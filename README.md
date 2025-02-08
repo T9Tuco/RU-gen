@@ -1,7 +1,7 @@
 # RU-gen: Frontlines Enhancement Suite
 
 ![Lua](https://img.shields.io/badge/Lua-2C2D72?style=for-the-badge&logo=lua&logoColor=white)
-![Version](https://img.shields.io/badge/version-1.0.0-blue.svg?cacheSeconds=2592000)
+![Version](https://img.shields.io/badge/version-beta-blue.svg?cacheSeconds=2592000)
 ![License](https://img.shields.io/badge/License-MIT-yellow.svg)
 
 > A Lua-based enhancement suite for Frontlines
